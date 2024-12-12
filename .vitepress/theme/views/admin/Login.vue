@@ -52,7 +52,7 @@
     
     
     window.$message.success('登录成功')
-    // router.go('/admin/dashboard')
+    router.go('/pages/admin/dashboard')
   }
   </script>
   

@@ -141,6 +141,12 @@ export const themeConfig = {
         { text: "关于本站", link: "/pages/about", icon: "contacts" },
       ],
     },
+    {
+      text: "管理员",
+      items: [
+        { text: "管理员登录", link: "/pages/admin/login", icon: "admin" },
+      ],
+    },
   ],
   // 导航栏菜单 - 左侧
   navMore: [
