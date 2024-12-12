@@ -1,65 +1,63 @@
 <template>
   <!-- 管理后台路由不显示默认布局 -->
   <template v-if="!isAdminRoute">
-  <!-- 背景图片 -->
-  <Background />
-  <!-- 加载提示 -->
-  <Loading />
-  <!-- 中控台 -->
-  <Control />
-  <!-- 导航栏 -->
-  <Nav />
-  <!-- 主内容 -->
-  <main :class="['mian-layout', { loading: loadingStatus, 'is-post': isPostPage }]">
-    <!-- 404 -->
-    <NotFound v-if="page.isNotFound" />
-    <!-- 首页 -->
-    <Home v-if="frontmatter.layout === 'home'" showHeader />
-    <!-- 页面 -->
-    <template v-else>
-      <!-- 文章页面 -->
-      <Post v-if="isPostPage" />
-      <!-- 普通页面 -->
-      <Page v-else-if="!page.isNotFound" />
-    </template>
-  </main>
-  <!-- 页脚 -->
-  <FooterLink v-show="!loadingStatus" :showBar="isPostPage && !page.isNotFound" />
-  <Footer v-show="!loadingStatus" />
-  <!-- 悬浮菜单 -->
-  <Teleport to="body">
-    <!-- 左侧菜单 -->
-    <div :class="['left-menu', { hidden: footerIsShow }]">
-      <!-- 全局设置 -->
-      <Settings />
-      <!-- 全局播放器 -->
-      <Player />
-    </div>
-  </Teleport>
-  <!-- 右键菜单 -->
-  <RightMenu ref="rightMenuRef" />
-  <!-- 全局消息 -->
-  <Message />
+    <!-- 背景图片 -->
+    <Background />
+    <!-- 加载提示 -->
+    <Loading />
+    <!-- 中控台 -->
+    <Control />
+    <!-- 导航栏 -->
+    <Nav />
+    <!-- 主内容 -->
+    <main :class="['mian-layout', { loading: loadingStatus, 'is-post': isPostPage }]">
+      <!-- 404 -->
+      <NotFound v-if="page.isNotFound" />
+      <!-- 首页 -->
+      <Home v-if="frontmatter.layout === 'home'" showHeader />
+      <!-- 页面 -->
+      <template v-else>
+        <!-- 文章页面 -->
+        <Post v-if="isPostPage" />
+        <!-- 普通页面 -->
+        <Page v-else-if="!page.isNotFound" />
+      </template>
+    </main>
+    <!-- 页脚 -->
+    <FooterLink v-show="!loadingStatus" :showBar="isPostPage && !page.isNotFound" />
+    <Footer v-show="!loadingStatus" />
+    <!-- 悬浮菜单 -->
+    <Teleport to="body">
+      <!-- 左侧菜单 -->
+      <div :class="['left-menu', { hidden: footerIsShow }]">
+        <!-- 全局设置 -->
+        <Settings />
+        <!-- 全局播放器 -->
+        <Player />
+      </div>
+    </Teleport>
+    <!-- 右键菜单 -->
+    <RightMenu ref="rightMenuRef" />
+    <!-- 全局消息 -->
+    <Message />
   </template>
-
+  
   <!-- 管理后台路由 -->
- <template v-else>
-  <AdminLayout>
-    <Content />
-  </AdminLayout>
- </template>
-
+  <template v-else>
+    <AdminLayout>
+      <Content />
+    </AdminLayout>
+  </template>
 </template>
-
-
 
 <script setup>
 import { storeToRefs } from "pinia";
 import { mainStore } from "@/store";
 import { calculateScroll, specialDayGray } from "@/utils/helper";
+import { useRoute } from 'vitepress'
 import AdminLayout from '@/components/admin/Layout.vue'
 
-const route = useRoute();
+const route = useRoute()
 const store = mainStore();
 const { frontmatter, page, theme } = useData();
 const { loadingStatus, footerIsShow, themeValue, themeType, backgroundType, fontFamily, fontSize } =
@@ -143,10 +141,10 @@ watch(
   () => changeSiteFont(),
 );
 
-//判断是否是管理后台路由
-const isAdminRoute= computed(()=>{
+// 判断是否是管理后台路由
+const isAdminRoute = computed(() => {
   const isAdminPath = route.path.startsWith('/admin') || route.path.startsWith('/pages/admin')
-  const isLoginPath= route.path.startsWith('/login')
+  const isLoginPath = route.path.endsWith('/login')
   return isAdminPath && !isLoginPath
 })
 

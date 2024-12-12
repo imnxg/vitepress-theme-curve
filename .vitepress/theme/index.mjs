@@ -1,6 +1,7 @@
 import { h } from "vue";
 import { createPinia } from "pinia";
 import { routeChange } from "@/utils/initTools.mjs";
+import { useAuthGuard } from './middleware/auth'
 import { enhanceAppWithTabs } from "vitepress-plugin-tabs/client";
 import LazyLoader from "@/components/LazyLoader.vue";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
@@ -32,6 +33,13 @@ const Theme = {
     enhanceAppWithTabs(app);
     // 路由守卫
     router.onBeforeRouteChange = (to) => {
+      const { checkAuth } = useAuthGuard();
+      // 管理后台路由需要验证登录状态,检查页面访问权限
+      if (!checkAuth(to)) {
+        router.go('/pages/admin/login')
+        return
+      }
+
       routeChange("before", to);
     };
     router.onAfterRouteChanged = (to) => {

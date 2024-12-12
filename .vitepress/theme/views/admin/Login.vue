@@ -37,19 +37,33 @@
   <script setup>
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vitepress'
+  import { useAdminStore } from '@/store/modules/admin'
   
   const router = useRouter()
+  const adminStore = useAdminStore()
   const username = ref('')
   const password = ref('')
   const showPassword = ref(false)
   
+  //如果已经登录，直接跳转到仪表盘
+  onMounted(() => {
+    if (adminStore.checkLoginStatus()) {
+        console.log('已经登录，跳转到仪表盘',adminStore)
+      router.go('/pages/admin/dashboard')
+    }
+  })
+
   const handleLogin = () => {
     if (!username.value || !password.value) {
       window.$message.warning('请输入用户名和密码')
       return
     }
     
-    
+    // TODO：后续调用登录接口，模拟登录成功
+    adminStore.login({
+      username: username.value,
+      token: 'mock-token'
+    })
     
     window.$message.success('登录成功')
     router.go('/pages/admin/dashboard')

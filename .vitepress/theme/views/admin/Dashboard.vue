@@ -44,9 +44,12 @@
   <script setup>
   import { ref, computed } from 'vue'
   import { useRouter } from 'vitepress'
+  import { useAdminStore } from '@/store/modules/admin'
   import AdminLayout from '@/components/admin/Layout.vue'
   
   const router = useRouter()
+  const adminStore = useAdminStore()
+  const username = computed(() => adminStore.userInfo?.username || 'Admin')
   
   // 统计数据
   const statistics = ref([
