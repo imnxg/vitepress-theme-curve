@@ -1,4 +1,6 @@
 <template>
+  <!-- 管理后台路由不显示默认布局 -->
+  <template v-if="!isAdminRoute">
   <!-- 背景图片 -->
   <Background />
   <!-- 加载提示 -->
@@ -38,12 +40,24 @@
   <RightMenu ref="rightMenuRef" />
   <!-- 全局消息 -->
   <Message />
+  </template>
+
+  <!-- 管理后台路由 -->
+ <template v-else>
+  <AdminLayout>
+    <Content />
+  </AdminLayout>
+ </template>
+
 </template>
+
+
 
 <script setup>
 import { storeToRefs } from "pinia";
 import { mainStore } from "@/store";
 import { calculateScroll, specialDayGray } from "@/utils/helper";
+import AdminLayout from '@/components/admin/Layout.vue'
 
 const route = useRoute();
 const store = mainStore();
@@ -128,6 +142,13 @@ watch(
   () => fontFamily.value,
   () => changeSiteFont(),
 );
+
+//判断是否是管理后台路由
+const isAdminRoute= computed(()=>{
+  const isAdminPath = route.path.startsWith('/admin') || route.path.startsWith('/pages/admin')
+  const isLoginPath= route.path.startsWith('/login')
+  return isAdminPath && !isLoginPath
+})
 
 onMounted(() => {
   console.log(frontmatter.value, page.value, theme.value);
