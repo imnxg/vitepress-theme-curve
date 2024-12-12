@@ -19,7 +19,8 @@ test.html
 .vitepress/cache
 .vitepress/components.d.ts
 .vitepress/auto-imports.d.ts
-themeConfig.mjs
+# themeConfig.mjs #允许提交
+#.vitepress/theme/assets/themeConfig.mjs 这个文件是主题配置文件，是主题默认的，这里就不在里面进行修改，
 !.vitepress/theme/assets/themeConfig.mjs
 
 posts/*
