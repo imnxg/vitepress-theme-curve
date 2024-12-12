@@ -14,10 +14,13 @@
 import { computed } from 'vue'
 import AdminHeader from './Header.vue'
 import AdminSidebar from './Sidebar.vue'
+import { useAuthCheck } from '@/composables/useAuthCheck'
 import { useSidebarCollapse } from '@/composables/useSidebarCollapse'
 
 const { collapsed } = useSidebarCollapse()
 
+// 启用自动检查
+useAuthCheck()
 
 </script>
 
