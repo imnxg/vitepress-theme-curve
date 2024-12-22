@@ -1,4 +1,5 @@
-import { getAllPosts } from "../.vitepress/theme/utils/getPostData.mjs";
+// import { getAllPosts } from "../.vitepress/theme/utils/getPostData.mjs";
+import { getAllPosts } from "../.vitepress/theme/utils/getPostArticleData.mjs";
 import { getThemeConfig } from "../.vitepress/init.mjs";
 
 const postData = await getAllPosts();

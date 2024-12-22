@@ -18,6 +18,9 @@ pinia.use(piniaPluginPersistedstate);
 // InstantSearch
 import InstantSearch from "vue-instantsearch/vue3/es";
 
+//pages
+import Article from './views/article/[id].vue'
+
 // Theme
 const Theme = {
   // extends: Theme,
@@ -45,6 +48,7 @@ const Theme = {
     router.onAfterRouteChanged = (to) => {
       routeChange("after", to);
     };
+    app.component("Article", Article);
   },
 };
 

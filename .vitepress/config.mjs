@@ -1,12 +1,18 @@
 import { defineConfig } from "vitepress";
 import { createRssFile } from "./theme/utils/generateRSS.mjs";
 import { withPwa } from "@vite-pwa/vitepress";
+// import {
+//   getAllPosts,
+//   getAllType,
+//   getAllCategories,
+//   getAllArchives,
+// } from "./theme/utils/getPostData.mjs";
 import {
   getAllPosts,
   getAllType,
   getAllCategories,
   getAllArchives,
-} from "./theme/utils/getPostData.mjs";
+} from "./theme/utils/getPostArticleData.mjs";
 import { jumpRedirect } from "./theme/utils/commonTools.mjs";
 import { getThemeConfig } from "./init.mjs";
 import markdownConfig from "./theme/utils/markdownConfig.mjs";

@@ -12,15 +12,19 @@
     <!-- 主内容 -->
     <main :class="['mian-layout', { loading: loadingStatus, 'is-post': isPostPage }]">
       <!-- 404 -->
-      <NotFound v-if="page.isNotFound" />
+      <!-- <NotFound v-if="page.isNotFound" /> -->
+      <NotFound v-if="page.isNotFound && !isArticlePage" />
+
       <!-- 首页 -->
       <Home v-if="frontmatter.layout === 'home'" showHeader />
       <!-- 页面 -->
       <template v-else>
         <!-- 文章页面 -->
         <Post v-if="isPostPage" />
+        <Article v-if="isArticlePage" />
         <!-- 普通页面 -->
-        <Page v-else-if="!page.isNotFound" />
+        <!-- <Page v-else-if="!page.isNotFound" /> -->
+        <Page v-else-if="!page.isNotFound && !isArticlePage" />
       </template>
     </main>
     <!-- 页脚 -->
@@ -56,6 +60,7 @@ import { mainStore } from "@/store";
 import { calculateScroll, specialDayGray } from "@/utils/helper";
 import { useRoute } from 'vitepress'
 import AdminLayout from '@/components/admin/Layout.vue'
+import Article from '@/views/article/[id].vue'
 
 const route = useRoute()
 const store = mainStore();
@@ -65,6 +70,11 @@ const { loadingStatus, footerIsShow, themeValue, themeType, backgroundType, font
 
 // 右键菜单
 const rightMenuRef = ref(null);
+
+// 判断是否为文章页面
+const isArticlePage = computed(() => {
+  return route.path.startsWith('/article/')
+})
 
 // 判断是否为文章页面
 const isPostPage = computed(() => {
