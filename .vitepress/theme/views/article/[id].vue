@@ -108,8 +108,10 @@ import { ref, onMounted } from 'vue';
 import { formatTimestamp } from "@/utils/helper";
 import { generateId } from "@/utils/commonTools";
 import initFancybox from "@/utils/initFancybox";
-import markdownConfig from '../../utils/markdownConfig.mjs';
+import markdownConfig from '@/utils/markdownConfig.mjs';
 import MarkdownIt from 'markdown-it';
+import { mediaPlugin } from '@/utils/markdownPlugins';
+import Comments from '../../components/Plugins/Comments/index.vue';
 
 const route = useRoute();
 const { page, theme, frontmatter } = useData();
@@ -120,8 +122,13 @@ const md = new MarkdownIt({
   linkify: true,
   typographer: true
 });
-// 应用配置
-markdownConfig(md, theme.value);
+
+console.log('Initializing markdown-it with mediaPlugin');
+// 使用多媒体插件
+md.use(mediaPlugin);
+
+// 应用其他配置
+// markdownConfig(md, theme.value);
 
 // 评论元素
 const commentRef = ref(null);
@@ -161,17 +168,22 @@ const renderedContent = computed(() => {
     console.log('No content to render')
     return ''
   }
-  console.log('Rendering content:', currentPost.value.content)
+  console.log('原始 Markdown 内容:', currentPost.value.content)
   try {
-    return md.render(currentPost.value.content)
+    const rendered = md.render(currentPost.value.content)
+    console.log('渲染后的 HTML:', rendered)
+    return rendered
   } catch (error) {
-    console.error('Error rendering markdown:', error)
+    console.error('Markdown 渲染错误:', error)
     return currentPost.value.content
   }
 })
 
+
 onMounted(() => {
   initFancybox(theme.value);
+  console.log('Article page mounted');
+  console.log('Comment ref:', commentRef.value);
 });
 </script>
 
@@ -422,5 +434,9 @@ onMounted(() => {
       }
     }
   }
+}
+
+.comment-section {
+  margin-top: 2rem;
 }
 </style>

@@ -6,14 +6,15 @@ const initComments = async (themeConfig) => {
     const option = themeConfig.comment;
     const commentType = option.type;
     if (!option.enable) return false;
-    const server = option[commentType].server;
-    console.log("开始加载", commentType, server);
+    
+    console.log("开始加载评论系统:", commentType);
+    
     switch (commentType) {
       case "artalk":
         // 引入资源
-        await loadCSS(`${server}/dist/Artalk.css`);
+        await loadCSS(`${option[commentType].server}/dist/Artalk.css`);
         return await new Promise((resolve, reject) => {
-          loadScript(`${server}/dist/Artalk.js`, {
+          loadScript(`${option[commentType].server}/dist/Artalk.js`, {
             callback: () => {
               if (typeof Artalk === "object") {
                 resolve(Artalk);
@@ -36,6 +37,8 @@ const initComments = async (themeConfig) => {
             },
           });
         });
+      case "course":
+        return true; // 直接返回 true，因为不需要加载额外资源
       default:
         return false;
     }

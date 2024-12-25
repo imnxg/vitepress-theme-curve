@@ -1,8 +1,6 @@
 <!-- 评论 -->
 <template>
   <div
-    v-if="theme.comment.enable"
-    :key="router.route.path"
     ref="mainCommentRef"
     id="main-comment"
     class="comment"
@@ -14,33 +12,25 @@
       </span>
       <span class="tool" @click="router.go('/pages/privacy')"> 隐私政策 </span>
     </div>
-    <!-- 区分评论系统 -->
-    <Artalk v-if="theme.comment.type === 'artalk'" :fill="fill" />
-    <Twikoo v-else-if="theme.comment.type === 'twikoo'" :fill="fill" />
+    
+    <!-- 评论系统 -->
+    <CourseComments :fill="fill" />
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useData, useRouter } from 'vitepress';
+import CourseComments from './CourseComments.vue';
+
 const { theme } = useData();
 const router = useRouter();
-const props = defineProps({
-  // 填充评论区
-  fill: {
-    type: [Boolean, String],
-    default: false,
-  },
+const fill = ref(false);
+
+onMounted(() => {
+  console.log('Comments component mounted');
+  console.log('Theme:', theme.value);
 });
-const mainCommentRef = ref(null);
-
-// 滚动至评论
-const scrollToComments = () => {
-  if (!mainCommentRef.value) return false;
-  const elementRect = mainCommentRef.value.getBoundingClientRect();
-  const elementTop = elementRect.top + window.scrollY;
-  window.scrollBy({ top: elementTop - 80, behavior: "smooth" });
-};
-
-defineExpose({ scrollToComments });
 </script>
 
 <style lang="scss" scoped>

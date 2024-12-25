@@ -63,6 +63,15 @@ references:
 - 代码高亮
 - 链接跳转
 - 等等...
+
+## pdf
+
+![PDF文档](http://www.caict.ac.cn/kxyj/qwfb/bps/202408/P020240830315324580655.pdf)
+
+##  视频
+
+![video视频](https://upos-hz-mirrorakam.akamaized.net/upgcxcode/67/16/27473151667/27473151667-1-192.mp4?e=ig8euxZM2rNcNbRg7bdVhwdlhWNjhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1735120234&gen=playurlv2&os=akam&oi=752066219&trid=62f5f5f629824b559001ae77ebdabaa1T&mid=175268126&platform=html5&og=hw&upsig=357703b371436717ee7c182bb576f717&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform,og&hdnts=exp=1735113034~hmac=877cf9b2f7df9e69f04302f2f139825bcb0827c4ab9abfc43f47b9875eb0c134&bvc=vod&nettype=0&bw=126491&orderid=0,2&buvid=&build=0&mobi_app=&f=T_0_0&logo=80000000)
+
 `;
 
     return content;

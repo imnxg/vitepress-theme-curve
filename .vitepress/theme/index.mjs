@@ -20,6 +20,7 @@ import InstantSearch from "vue-instantsearch/vue3/es";
 
 //pages
 import Article from './views/article/[id].vue'
+import Comments from './components/Plugins/Comments/index.vue'
 
 // Theme
 const Theme = {
@@ -32,6 +33,7 @@ const Theme = {
     app.use(pinia);
     app.use(InstantSearch);
     app.component("LazyLoader", LazyLoader);
+    app.component("Comments", Comments);
     // 插件
     enhanceAppWithTabs(app);
     // 路由守卫

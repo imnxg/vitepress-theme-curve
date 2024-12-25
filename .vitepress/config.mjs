@@ -34,7 +34,7 @@ export default withPwa(
     lang: themeConfig.siteMeta.lang,
     // 简洁的 URL
     cleanUrls: true,
-    // 最后更新时间戳
+    // 最后更新��间戳
     lastUpdated: true,
     // 主题
     appearance: "dark",
@@ -52,6 +52,13 @@ export default withPwa(
       tagsData: getAllType(postData),
       categoriesData: getAllCategories(postData),
       archivesData: getAllArchives(postData),
+      comment: {
+        enable: true,
+        type: 'course',
+        course: {
+          server: 'http://localhost:8888'
+        }
+      }
     },
     // markdown
     markdown: {
@@ -101,7 +108,11 @@ export default withPwa(
         alias: {
           // eslint-disable-next-line no-undef
           "@": path.resolve(__dirname, "./theme"),
+          'pdfjs-dist': 'pdfjs-dist/build/pdf'
         },
+      },
+      optimizeDeps: {
+        include: ['pdfjs-dist']
       },
       css: {
         preprocessorOptions: {
@@ -124,6 +135,13 @@ export default withPwa(
         },
       },
     },
+    // comment: {
+    //   enable: true,
+    //   type: 'course', // 使用新的评论系统
+    //   course: {
+    //     server: 'http://localhost:8888'
+    //   }
+    // },
     // PWA
     pwa: {
       registerType: "autoUpdate",
